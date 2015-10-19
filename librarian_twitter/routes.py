@@ -1,6 +1,10 @@
+from bottle import request
+
+from bottle_utils.i18n import i18n_url
+
 from librarian_core.contrib.templates.renderer import view
 
-from .twitter import HANDLE_RE
+from .twitter import init_pager, retrieve_tweets, twitter_count
 
 
 EXPORTS = {
@@ -9,21 +13,24 @@ EXPORTS = {
 
 
 @view('twitter/twitter')
-def list_feed(handle):
-    handles = handle.split(' ')
-    return({'handles': handles})
-
-
-@view('twitter/twitter')
-def main_feed():
-    processed = list_feed('outernetforall')
-    return processed
+def twitter_list():
+    """ List tweets based on query parameters """
+    db = request.db['twitter']
+    # parse search query
+    handle = request.params.getunicode('h', '').strip()
+    # get twitter count
+    item_count = twitter_count(db, handle)
+    pager = init_pager(request, item_count)
+    tweets = retrieve_tweets(db, handle, pager)
+    print(request.params.decode(),tweets)
+    return dict(tweets=tweets,
+                pager=pager,
+                vals=request.params.decode(),
+                base_path=i18n_url('twitter'),
+                view=request.params.get('view'))
 
 
 def routes(config):
-    print('ADDING TWITTER ROUTE')
     return (
-        ('twitter:default', main_feed, 'GET', '/twitter/', {}),
-        ('twitter:list', list_feed, 'GET',
-         '/twitter/<handle:re:{}>'.format(HANDLE_RE), {}),
+        ('twitter', twitter_list, 'GET', '/twitter/', {}),
     )
