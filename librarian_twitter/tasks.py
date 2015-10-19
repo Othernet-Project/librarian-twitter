@@ -1,8 +1,13 @@
 import json
 import logging
 
+from dateutil import parser
+
 from squery import Replace
 from fsal.client import FSAL
+
+
+IMPORT_QUERY = Replace('tweets', cols=('id', 'handle', 'text', 'image', 'created'))
 
 
 def check_for_tweets(supervisor):
@@ -30,22 +35,23 @@ def check_for_tweets(supervisor):
 
 
 def parse_json(path, db):
+    """ Makes a note in the log, opens json file, and imports each tweet """
     logging.debug("Twitter: importing {}".format(path))
     for tweet in json.load(open(path)):
         import_tweet(tweet, db)
 
 
 def import_tweet(tweet, db):
-    q = Replace('tweets', cols=('id', 'handle', 'text', 'image', 'created'))
+    """ Takes tweet and imports it into the database """
     params = {
         'id': tweet['id'],
         'handle': tweet['handle'],
         'text': tweet['text'],
-        'created': tweet['time'],
+        'created': parser.parse(tweet['time']),
     }
     try:
         params['image'] = tweet['img']
     except KeyError:
         params['image'] = None
 
-    db.execute(q, params)
+    db.execute(IMPORT_QUERY, params)
