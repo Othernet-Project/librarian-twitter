@@ -16,8 +16,8 @@ def retrieve_tweets(db, handle, pager):
     q.offset = offset
     q.limit = limit
     if handle != '':
-        q.where = 'handle = {}'.format(handle)
-    db.execute(q)
+        q.where = "handle like :handle"
+    db.query(q, handle=handle)
     return db.results
 
 
@@ -31,8 +31,8 @@ def twitter_count(db, handle):
     """ Queries the database and returns a count of tweets for the given handle """
     q = COUNT_Q
     if handle != '':
-        q.where = 'handle = {}'.format(handle)
-    db.execute(q)
+        q.where = "handle like :handle"
+    db.query(q, handle=handle)
     return db.result[0]
 
 
