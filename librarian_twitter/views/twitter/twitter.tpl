@@ -1,4 +1,4 @@
-<%inherit file="/base.tpl"/>
+<%inherit file="/narrow_base.tpl"/>
 <%namespace name='tweet_list' file='_tweet_list.tpl'/>
 <%namespace name='handle_selector' file='_handle_selector.tpl'/>
 
@@ -13,7 +13,7 @@ ${_('Twitter')}
 ##    <link rel="stylesheet" href="${assets['css/twitter']}">
 ##</%block>
 
-<%block name="main">
+<%block name="narrow_main">
     <div id="tabbable-twitter" class="o-tabbable">
         <ul class="o-tab-handles" role="tablist">
             <li class="o-tab-handle">
