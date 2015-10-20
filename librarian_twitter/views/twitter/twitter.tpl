@@ -13,16 +13,42 @@ ${_('Twitter')}
 ##    <link rel="stylesheet" href="${assets['css/twitter']}">
 ##</%block>
 
-% for tweet in tweets:
-    <p>
-        ${tweet[0]}
-        ${tweet[1]}
-        ${tweet[2]}
-        ${tweet[3]}
-        ${tweet[4]}
-    </p>
-% endfor
+<%block name="main">
+    <div id="tabbable-twitter" class="o-tabbable">
+        <ul class="o-tab-handles" role="tablist">
+            <li class="o-tab-handle">
+            ${ui.tab_activator(_('Tweets'), 'tweets', 'tweet-tab', active=True)}
+            </li>
+            <li class="o-tab-handle">
+            ${ui.tab_activator(_('Handles'), 'handles', 'handle-tab')}
+            </li>
+        </ul>
 
-##<%block name="extra_scripts">
-    ##<script src="${assets['js/twitter']}"></script>
-##</%block>
+        <div class="o-tab-panels">
+            <%ui:tab_panel id="tweet-tab" expanded="true">
+                % for tweet in tweets:
+                    <p>
+                        ${tweet}
+                        ${tweet[0]}
+                        ${tweet[1]}
+                        ${tweet[2]}
+                        ${tweet[3]}
+                        ${tweet[4]}
+                    </p>
+                % endfor
+            </%ui:tab_panel>
+
+            <%ui:tab_panel id="handle-tab">
+                % for handle in handles:
+                    <a href="${i18n_url('twitter', h=handle[0])}">
+                        ${handle[0]}
+                    </a>
+                % endfor
+            </%ui:tab_panel>
+        </div>
+    </div>
+</%block>
+
+<%block name="extra_scripts">
+    <script src="${assets['js/twitter']}"></script>
+</%block>
