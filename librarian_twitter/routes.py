@@ -4,7 +4,7 @@ from bottle_utils.i18n import i18n_url
 
 from librarian_core.contrib.templates.renderer import view
 
-from .twitter import init_pager, retrieve_tweets, twitter_count
+from .twitter import init_pager, retrieve_tweets, twitter_count, list_handles
 
 
 EXPORTS = {
@@ -22,8 +22,9 @@ def twitter_list():
     item_count = twitter_count(db, handle)
     pager = init_pager(request, item_count)
     tweets = retrieve_tweets(db, handle, pager)
-    print(request.params.decode(),tweets)
+    handles = list_handles(db)
     return dict(tweets=tweets,
+                handles=handles,
                 pager=pager,
                 vals=request.params.decode(),
                 base_path=i18n_url('twitter'),

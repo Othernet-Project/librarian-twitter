@@ -4,14 +4,15 @@ from squery import Select
 
 
 HANDLE_RE = '.+'
-SEL_TWEETS = Select(sets='tweets')
-COUNT_TWEETS = Select('COUNT(*) as count', sets='tweets')
+TWEET_Q = Select(sets='tweets')
+HANDLE_Q = Select('DISTINCT handle', sets='tweets')
+COUNT_Q = Select('COUNT(*) as count', sets='tweets')
 
 
 def retrieve_tweets(db, handle, pager):
     """ Takes a request context, a handle, and a pager and returns a list """
     offset, limit = pager.items
-    q = SEL_TWEETS
+    q = TWEET_Q
     q.offset = offset
     q.limit = limit
     if handle != '':
@@ -20,10 +21,15 @@ def retrieve_tweets(db, handle, pager):
     return db.results
 
 
+def list_handles(db):
+    q = HANDLE_Q
+    db.execute(q)
+    return db.results
+
 
 def twitter_count(db, handle):
     """ Queries the database and returns a count of tweets for the given handle """
-    q = COUNT_TWEETS
+    q = COUNT_Q
     if handle != '':
         q.where = 'handle = {}'.format(handle)
     db.execute(q)
