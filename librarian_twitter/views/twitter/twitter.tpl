@@ -9,9 +9,13 @@
 ${_('Twitter')}
 </%block>
 
-##<%block name="extra_head">
-##    <link rel="stylesheet" href="${assets['css/twitter']}">
-##</%block>
+<%block name="extra_head">
+    <link rel="stylesheet" href="${assets['css/twitter']}">
+</%block>
+
+<%block name="menubar_panel">
+    <input id="twitter-filter" placeholder="Twitter filter">
+</%block>
 
 <%block name="narrow_main">
     <div id="tabbable-twitter" class="o-tabbable">
@@ -27,14 +31,23 @@ ${_('Twitter')}
         <div class="o-tab-panels">
             <%ui:tab_panel id="tweet-tab" expanded="true">
                 % for tweet in tweets:
-                    <p>
-                        ${tweet}
-                        ${tweet[0]}
-                        ${tweet[1]}
-                        ${tweet[2]}
-                        ${tweet[3]}
-                        ${tweet[4]}
-                    </p>
+                    <div class="tweet" id="${tweet['id']}>
+                        <img class="twitter-icon" src="icon.png">
+                        <p class="tweet-header">
+                            <span class="handle">
+                                ${tweet['handle']}
+                            </span>
+                            <span class="tweet-img">
+                                ${tweet['img']}
+                            </span>
+                            <span class="tweet-timestamp">
+                                ${tweet['timestamp']}
+                            </span>
+                        </p>
+                        <span class="tweet-text">
+                            ${tweet['tweet']}
+                        </span>
+                    </div>
                 % endfor
             </%ui:tab_panel>
 
