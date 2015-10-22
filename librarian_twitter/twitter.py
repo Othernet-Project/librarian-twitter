@@ -5,6 +5,7 @@ from squery import Select
 
 HANDLE_RE = '.+'
 TWEET_Q = Select(sets='tweets')
+HANDLE_TWEET_Q = Select(sets='tweets', where="handle like :handle")
 HANDLE_Q = Select('DISTINCT handle', sets='tweets')
 COUNT_Q = Select('COUNT(*) as count', sets='tweets')
 
@@ -27,11 +28,12 @@ def rows_to_dicts(row_list):
 def retrieve_tweets(db, handle, pager):
     """ Takes a request context, a handle, and a pager and returns a list """
     offset, limit = pager.items
-    q = TWEET_Q
+    if handle.strip() != '':
+        q = HANDLE_TWEET_Q
+    else:
+        q = TWEET_Q
     q.offset = offset
     q.limit = limit
-    if handle != '':
-        q.where = "handle like :handle"
     db.query(q, handle=handle)
     return db.results
 
