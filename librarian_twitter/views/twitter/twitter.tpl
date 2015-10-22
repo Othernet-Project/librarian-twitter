@@ -13,9 +13,6 @@ ${_('Twitter')}
     <link rel="stylesheet" href="${assets['css/twitter']}">
 </%block>
 
-<%block name="menubar_panel">
-    <input id="twitter-filter" placeholder="Twitter filter">
-</%block>
 
 <%block name="narrow_main">
     <div id="tabbable-twitter" class="o-tabbable">
@@ -30,11 +27,16 @@ ${_('Twitter')}
 
         <div class="o-tab-panels">
             <%ui:tab_panel id="tweet-tab" expanded="true">
+                % if not tweets:
+                    <div class="tweet-error">
+                        <p>Sorry! No tweets could be found with the user name "${handle}"</p>
+                    </div>
+                % endif
                 % for tweet in tweets:
                     <div class="tweet" id="${tweet['id']}>
                         <img class="twitter-icon" src="icon.png">
                         <p class="tweet-header">
-                            <span class="handle">
+                            <span class="tweet-handle">
                                 ${tweet['handle']}
                             </span>
                             <span class="tweet-img">
@@ -52,11 +54,14 @@ ${_('Twitter')}
             </%ui:tab_panel>
 
             <%ui:tab_panel id="handle-tab">
-                % for handle in handles:
-                    <a href="${i18n_url('twitter', h=handle[0])}">
-                        ${handle[0]}
-                    </a>
-                % endfor
+                <input id="handle-filter" placeholder="Filter by handle (username)">
+                <div id="handle-list">
+                    % for handle in handles:
+                        <a class="handle" href="${i18n_url('twitter', h=handle[0])}">
+                            ${handle[0]}
+                        </a>
+                    % endfor
+                </div>
             </%ui:tab_panel>
         </div>
     </div>
