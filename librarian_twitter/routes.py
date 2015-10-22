@@ -26,6 +26,7 @@ def twitter_list():
     tweets = rows_to_dicts(tweets)
     handles = list_handles(db)
     return dict(tweets=tweets,
+                handle=handle,
                 handles=handles,
                 pager=pager,
                 vals=request.params.decode(),
