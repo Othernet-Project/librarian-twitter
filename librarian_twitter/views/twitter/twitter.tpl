@@ -1,8 +1,8 @@
 <%inherit file="/narrow_base.tpl"/>
 <%namespace name='tweet_list' file='_tweet_list.tpl'/>
 <%namespace name='handle_selector' file='_handle_selector.tpl'/>
-
 <%namespace name="ui" file="/ui/widgets.tpl"/>
+<%namespace name="p" file="/ui/pager.tpl"/>
 
 <%block name="title">
 ## Translators, used as page title
@@ -67,8 +67,7 @@ ${_('Twitter')}
                     </span>
                 </div>
             % endfor
-            <%namespace name="p" file="/ui/pager.tpl"/>
-            ${p.pager_links(pager, 'prev', 'next')}
+            ${p.pager_links(pager, _('previous'), _('next'))}
         </%ui:tab_panel>
 
         <%ui:tab_panel id="handles-tab" expanded="${'true' if section == 'handles' else ''}">
