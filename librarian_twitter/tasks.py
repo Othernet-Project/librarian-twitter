@@ -3,11 +3,13 @@ import logging
 
 from dateutil import parser
 
-from squery import Replace
+from sqlize import Replace
 from fsal.client import FSAL
+from librarian_core.contrib.databases.serializers import DateTimeDecoder
 
 
-IMPORT_QUERY = Replace('tweets', cols=('id', 'handle', 'text', 'image', 'created'))
+IMPORT_QUERY = Replace('tweets',
+                       cols=('id', 'handle', 'text', 'image', 'created'))
 
 
 def check_for_tweets(supervisor):
@@ -37,21 +39,27 @@ def check_for_tweets(supervisor):
 def parse_json(path, db):
     """ Makes a note in the log, opens json file, and imports each tweet """
     logging.debug("Twitter: importing {}".format(path))
-    for tweet in json.load(open(path)):
-        import_tweet(tweet, db)
+    import_tweets(json.load(open(path), cls=DateTimeDecoder), db)
 
 
-def import_tweet(tweet, db):
-    """ Takes tweet and imports it into the database """
+def get_tweet_params(tweet):
     params = {
         'id': tweet['id'],
         'handle': tweet['handle'],
         'text': tweet['text'],
-        'created': parser.parse(tweet['time']),
+        'created': tweet['time'],
     }
     try:
         params['image'] = tweet['img']
     except KeyError:
         params['image'] = None
+    return params
 
-    db.execute(IMPORT_QUERY, params)
+
+def import_tweet(tweet, db):
+    """ Takes tweet and imports it into the database """
+    db.execute(IMPORT_QUERY, get_tweet_params(tweet))
+
+
+def import_tweets(tweets, db):
+    db.executemany(IMPORT_QUERY, (get_tweet_params(t) for t in tweets))
