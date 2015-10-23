@@ -2,6 +2,14 @@
 
 $twitter-color: #55acee;
 
+.o-narrow-panel {
+  max-width: 720px;
+}
+
+.twitter-pager {
+  text-align: center;
+}
+
 #handles-tab {
   a {
     display: block;

@@ -67,7 +67,9 @@ ${_('Twitter')}
                     </span>
                 </div>
             % endfor
-            ${p.pager_links(pager, _('previous'), _('next'))}
+            <p class="twitter-pager">
+                ${p.pager_links(pager, _('previous'), _('next'))}
+            </p>
         </%ui:tab_panel>
 
         <%ui:tab_panel id="handles-tab" expanded="${'true' if section == 'handles' else ''}">

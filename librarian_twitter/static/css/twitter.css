@@ -5,59 +5,69 @@
  * Recommended way to customize the variables is to load a separate module 
  * containing customized values _before_ this module.
  */
-/* line 6, ../../../src/scss/twitter.scss */
+/* line 5, ../../../src/scss/twitter.scss */
+.o-narrow-panel {
+  max-width: 720px;
+}
+
+/* line 9, ../../../src/scss/twitter.scss */
+.twitter-pager {
+  text-align: center;
+}
+
+/* line 14, ../../../src/scss/twitter.scss */
 #handles-tab a {
   display: block;
   margin-bottom: 0.5rem;
 }
 
-/* line 12, ../../../src/scss/twitter.scss */
+/* line 20, ../../../src/scss/twitter.scss */
 .twitter-note {
   padding: 0.5rem;
   background: rgba(85, 172, 238, 0.1);
   border: 1px solid #55acee;
 }
-/* line 19, ../../../src/scss/twitter.scss */
+/* line 27, ../../../src/scss/twitter.scss */
 .twitter-note .icon {
   font-size: 120%;
 }
-/* line 23, ../../../src/scss/twitter.scss */
+/* line 31, ../../../src/scss/twitter.scss */
 .twitter-note a {
   display: block;
 }
 
-/* line 28, ../../../src/scss/twitter.scss */
+/* line 36, ../../../src/scss/twitter.scss */
 .tweet {
   border-bottom: 1px solid #ddd;
   margin-bottom: 1rem;
 }
-/* line 32, ../../../src/scss/twitter.scss */
+/* line 40, ../../../src/scss/twitter.scss */
 .tweet:last-child {
   border-bottom: 0;
 }
-/* line 36, ../../../src/scss/twitter.scss */
+/* line 44, ../../../src/scss/twitter.scss */
 .tweet .tweet-header {
   margin-bottom: 0.5rem;
 }
-/* line 40, ../../../src/scss/twitter.scss */
+/* line 48, ../../../src/scss/twitter.scss */
 .tweet .twitter-icon {
   color: #55acee;
   font-size: 140%;
 }
-/* line 45, ../../../src/scss/twitter.scss */
+/* line 53, ../../../src/scss/twitter.scss */
 .tweet .tweet-text {
   margin-bottom: 0.5rem;
 }
-/* line 49, ../../../src/scss/twitter.scss */
+/* line 57, ../../../src/scss/twitter.scss */
 .tweet .tweet-timestamp {
   display: block;
   margin-bottom: 0.5rem;
 }
-/* line 54, ../../../src/scss/twitter.scss */
+/* line 62, ../../../src/scss/twitter.scss */
 .tweet time {
   font-size: 90%;
 }
-/* line 58, ../../../src/scss/twitter.scss */
+/* line 66, ../../../src/scss/twitter.scss */
 .tweet .tweet-img {
   margin-bottom: 0.5rem;
   padding-left: 2rem;
