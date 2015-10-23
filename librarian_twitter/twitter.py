@@ -56,6 +56,5 @@ def twitter_count(db, handle):
 def init_pager(request, count):
     # parse pagination params
     page = Paginator.parse_page(request.params)
-    per_page = Paginator.parse_per_page(request.params)
-    pager = Paginator(count, page, per_page)
+    pager = Paginator(count, page, per_page=20)
     return pager
