@@ -1,3 +1,62 @@
-a {
-  display: block;
+@import "base/params";
+
+$twitter-color: #55acee;
+
+#handles-tab {
+  a {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.twitter-note {
+  padding: 0.5rem;
+
+  // Styling
+  background: transparentize($twitter-color, 0.9);
+  border: 1px solid $twitter-color;
+
+  .icon {
+    font-size: 120%;
+  }
+
+  a {
+    display: block;
+  }
+}
+
+.tweet {
+  border-bottom: $o-separator-border;
+  margin-bottom: 1rem;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .tweet-header {
+    margin-bottom: 0.5rem;
+  }
+
+  .twitter-icon {
+    color: $twitter-color;
+    font-size: 140%;
+  }
+
+  .tweet-text {
+    margin-bottom: 0.5rem;
+  }
+
+  .tweet-timestamp {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  time {
+    font-size: 90%;
+  }
+
+  .tweet-img {
+    margin-bottom: 0.5rem;
+    padding-left: 2rem;
+  }
 }
