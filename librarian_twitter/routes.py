@@ -36,5 +36,5 @@ def twitter_list():
 
 def routes(config):
     return (
-        ('twitter', twitter_list, 'GET', '/twitter/', {}),
+        ('twitter:list', twitter_list, 'GET', '/twitter/', {}),
     )

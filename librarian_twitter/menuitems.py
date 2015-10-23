@@ -7,4 +7,4 @@ class TwitterMenuItem(MenuItem):
     name = 'twitter'
     label = _("Twitter")
     icon_class = 'twitter'
-    route = 'twitter'
+    route = 'twitter:list'
