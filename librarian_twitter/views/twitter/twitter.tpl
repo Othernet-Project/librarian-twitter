@@ -67,6 +67,8 @@ ${_('Twitter')}
                     </span>
                 </div>
             % endfor
+            <%namespace name="p" file="/ui/pager.tpl"/>
+            ${p.pager_links(pager, 'prev', 'next')}
         </%ui:tab_panel>
 
         <%ui:tab_panel id="handles-tab" expanded="${'true' if section == 'handles' else ''}">
