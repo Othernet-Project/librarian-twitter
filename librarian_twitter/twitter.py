@@ -1,13 +1,6 @@
 from librarian_ui.paginator import Paginator
 
-from squery import Select
-
-
 HANDLE_RE = '.+'
-TWEET_Q = Select(sets='tweets')
-HANDLE_TWEET_Q = Select(sets='tweets', where="handle like :handle")
-HANDLE_Q = Select('DISTINCT handle', sets='tweets')
-COUNT_Q = Select('COUNT(*) as count', sets='tweets')
 
 
 def rows_to_dicts(row_list):
@@ -27,27 +20,28 @@ def rows_to_dicts(row_list):
 
 def retrieve_tweets(db, handle, pager):
     """ Takes a request context, a handle, and a pager and returns a list """
+    handle = handle.strip()
+    q = db.Select(sets='tweets')
     offset, limit = pager.items
-    if handle.strip() != '':
-        q = HANDLE_TWEET_Q
-    else:
-        q = TWEET_Q
     q.order -= 'created'
     q.offset = offset
     q.limit = limit
+    if handle:
+        q.where = 'handle == :handle'
     db.query(q, handle=handle)
     return db.results
 
 
 def list_handles(db):
-    q = HANDLE_Q
+    q = db.Select('DISTINCT handle', sets='tweets')
+    q.order = 'handle'
     db.execute(q)
     return db.results
 
 
 def twitter_count(db, handle):
     """ Queries the database and returns a count of tweets for the given handle """
-    q = COUNT_Q
+    q = db.Select('COUNT(*) as count', sets='tweets')
     if handle != '':
         q.where = "handle like :handle"
     db.query(q, handle=handle)
@@ -57,5 +51,5 @@ def twitter_count(db, handle):
 def init_pager(request, count):
     # parse pagination params
     page = Paginator.parse_page(request.params)
-    pager = Paginator(count, page, per_page=20)
+    pager = Paginator(count, page, per_page=5)
     return pager
