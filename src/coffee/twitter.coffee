@@ -4,6 +4,8 @@
     selector: 'a'
     input: '#handle-filter'
     getText: (element) ->
-      $.trim(($ element).text()).toLowerCase()
+      element = $ element
+      text = element.text().trim()
+      text.toLowerCase()
 
 ) this, this.jQuery

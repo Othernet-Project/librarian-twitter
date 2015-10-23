@@ -4,7 +4,10 @@
     selector: 'a',
     input: '#handle-filter',
     getText: function(element) {
-      return $.trim(($(element)).text()).toLowerCase();
+      var text;
+      element = $(element);
+      text = element.text().trim();
+      return text.toLowerCase();
     }
   });
 })(this, this.jQuery);
