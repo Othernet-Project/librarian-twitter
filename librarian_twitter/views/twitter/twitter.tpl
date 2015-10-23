@@ -27,27 +27,43 @@ ${_('Twitter')}
 
     <div class="o-tab-panels">
         <%ui:tab_panel id="tweets-tab" expanded="${'true' if section == 'tweets' else ''}">
-            % if not tweets:
+            % if not tweet_count:
                 <div class="tweet-error">
                     <p>Sorry! No tweets could be found with the user name "${handle}"</p>
                 </div>
+            % else:
+                % if handle:
+                    <p class="twitter-note">
+                        ${_('Showing tweets from @{handle}.').format(handle=handle)}
+                        <a href="${i18n_url('twitter:list')}">
+                            <span class="icon icon-arrow-left"></span>
+                            <span>${_('Go back to all teweets')}</span>
+                        </a>
+                    </p>
+                % endif
             % endif
             % for tweet in tweets:
                 <div class="tweet" id="${tweet['id']}">
-                    <span class="twitter-icon icon icon-tweet"></span>
                     <p class="tweet-header">
+                        <span class="twitter-icon icon icon-tweet"></span>
                         <span class="tweet-handle">
-                            ${tweet['handle']}
-                        </span>
-                        <span class="tweet-img">
-                            ${tweet['img']}
-                        </span>
-                        <span class="tweet-timestamp">
-                            ${tweet['timestamp']}
+                            <a href="${i18n_url('twitter:list', h=tweet['handle'])}">
+                                @${tweet['handle']}
+                            </a>
                         </span>
                     </p>
-                    <span class="tweet-text">
-                        ${tweet['tweet']}
+                    <p class="tweet-text">
+                        ${tweet['text']}
+                    </p>
+                    % if tweet['image']:
+                        <p class="tweet-img">
+                            <img src="${tweet.image_path}" alt="image">
+                        </p>
+                    % endif
+                    <span class="tweet-timestamp">
+                        <time datetime="${tweet['created'].isoformat()}">
+                        ${tweet['created'].strftime('%Y-%m-%d %H:%M UTC')}
+                        </time>
                     </span>
                 </div>
             % endfor
@@ -60,7 +76,7 @@ ${_('Twitter')}
             <div id="handle-list">
                 % for handle in handles:
                     <a class="handle" href="${i18n_url('twitter:list', h=handle[0])}">
-                        ${handle[0]}
+                        @${handle[0]}
                     </a>
                 % endfor
             </div>
