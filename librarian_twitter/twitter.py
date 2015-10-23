@@ -32,6 +32,7 @@ def retrieve_tweets(db, handle, pager):
         q = HANDLE_TWEET_Q
     else:
         q = TWEET_Q
+    q.order -= 'created'
     q.offset = offset
     q.limit = limit
     db.query(q, handle=handle)
