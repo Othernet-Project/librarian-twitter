@@ -8,7 +8,9 @@ def initialize(supervisor):
 
 def post_start(supervisor):
     refresh_rate = supervisor.config['twitter.refresh_rate']
-    #supervisor.exts.tasks.schedule(check_for_tweets,
-                                   #args=(supervisor,),
-                                   #delay=refresh_rate,
-                                   #periodic=False)
+    if not refresh_rate:
+        return
+    supervisor.exts.tasks.schedule(check_for_tweets,
+                                   args=(supervisor,),
+                                   delay=refresh_rate,
+                                   periodic=False)
