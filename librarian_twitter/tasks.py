@@ -1,10 +1,7 @@
 import json
 import logging
 
-from dateutil import parser
-
 from sqlize import Replace
-from fsal.client import FSAL
 from librarian_core.contrib.databases.serializers import DateTimeDecoder
 
 
@@ -17,7 +14,7 @@ def check_for_tweets(supervisor):
         import_from_file task in the queue """
     config = supervisor.config
     db = supervisor.exts.databases['twitter']
-    fsal_client = FSAL(config['fsal.socket'])
+    fsal_client = supervisor.exts.fsal
     (success, dirs, files) = fsal_client.list_dir(config['twitter.tweetdir'])
 
     for f in files:
