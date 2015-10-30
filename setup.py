@@ -19,15 +19,12 @@ setup(
     include_package_data=True,
     long_description=read('README.rst'),
     install_requires=[
-        'scandir',
         'librarian_core',
         'librarian_content',
-        'fsal',
     ],
     dependency_links=[
         'git+ssh://git@github.com/Outernet-Project/librarian-core.git#egg=librarian_core-0.1',
         'git+ssh://git@github.com/Outernet-Project/librarian-content.git#egg=librarian_content-0.1',
-        'git+ssh://git@github.com/Outernet-Project/fsal.git#egg=fsal-0.1',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
