@@ -1,6 +1,4 @@
 <%inherit file="/narrow_base.tpl"/>
-<%namespace name='tweet_list' file='_tweet_list.tpl'/>
-<%namespace name='handle_selector' file='_handle_selector.tpl'/>
 <%namespace name="ui" file="/ui/widgets.tpl"/>
 <%namespace name="p" file="/ui/pager.tpl"/>
 
@@ -29,13 +27,13 @@ ${_('Twitter')}
         <%ui:tab_panel id="tweets-tab" expanded="${'true' if section == 'tweets' else ''}">
             % if not tweet_count and handle == "":
                 <div class="tweet-error">
-                    <p>${# Translators, message used when tweets have not been added to the database yet
-                    ('Sorry, no tweets have been imported yet. Please wait for some to download and be imported.')}</p>
+                    ## Translators, message used when tweets have not been added to the database yet
+                    <p>${('Sorry, no tweets have been imported yet. Please wait for some to download and be imported.')}</p>
                 </div>
             % elif not tweet_count:
                 <div class="tweet-error">
-                    <p>${# Translators, message used when no tweets are found for a given handle
-                    _('Sorry! No tweets could be found with the user name "{}"').format(handle)}</p>
+                    ## Translators, message used when no tweets are found for a given handle
+                    <p>${_('Sorry! No tweets could be found with the user name "{}"').format(handle)}</p>
                 </div>
             % else:
                 % if handle:
