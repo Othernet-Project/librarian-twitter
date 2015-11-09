@@ -81,6 +81,9 @@ ${_('Twitter')}
                 <input type="text" id="handle-filter" placeholder="Filter by handle (username)">
             </p>
             <div id="handle-list">
+                % if not handles:
+                    ## Translators, message used when no twitter handles are present
+                    <p class="tweet-error">${_('Sorry, no twitter handles could be found. Please wait for some tweets to be downloaded and imported')}</p>
                 % for handle in handles:
                     <a class="handle" href="${i18n_url('twitter:list', h=handle[0])}">
                         @${handle[0]}
