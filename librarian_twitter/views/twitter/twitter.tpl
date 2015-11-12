@@ -84,6 +84,7 @@ ${_('Twitter')}
                 % if not handles:
                     ## Translators, message used when no twitter handles are present
                     <p class="tweet-error">${_('Sorry, no twitter handles could be found. Please wait for some tweets to be downloaded and imported')}</p>
+                % endif
                 % for handle in handles:
                     <a class="handle" href="${i18n_url('twitter:list', h=handle[0])}">
                         @${handle[0]}
