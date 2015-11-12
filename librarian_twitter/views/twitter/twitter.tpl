@@ -28,7 +28,7 @@ ${_('Twitter')}
             % if not tweet_count and handle == "":
                 <div class="tweet-error">
                     ## Translators, message used when tweets have not been added to the database yet
-                    <p>${('Sorry, no tweets have been imported yet. Please wait for some to download and be imported.')}</p>
+                    <p>${('Sorry, no tweets have been downloaded yet. Please wait for some to download.')}</p>
                 </div>
             % elif not tweet_count:
                 <div class="tweet-error">
