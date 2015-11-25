@@ -6,6 +6,7 @@ from librarian_core.contrib.databases.serializers import DateTimeDecoder
 
 
 IMPORT_QUERY = Replace('tweets',
+                       constraints=('id'),
                        cols=('id', 'handle', 'text', 'image', 'created'))
 
 
