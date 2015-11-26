@@ -1,12 +1,12 @@
 import json
 import logging
 
-from sqlize import Replace
+from sqlize_pg import Replace
 from librarian_core.contrib.databases.serializers import DateTimeDecoder
 
 
 IMPORT_QUERY = Replace('tweets',
-                       constraints=('id'),
+                       constraints=('id',),
                        cols=('id', 'handle', 'text', 'image', 'created'))
 
 
@@ -57,7 +57,10 @@ def get_tweet_params(tweet):
 
 def import_tweet(tweet, db):
     """ Takes tweet and imports it into the database """
-    db.execute(IMPORT_QUERY, get_tweet_params(tweet))
+    import_query = db.Replace(
+        'tweets', constraints=('id',),
+        cols=('id', 'handle', 'text', 'image', 'created'))
+    db.execute(import_query, get_tweet_params(tweet))
 
 
 def import_tweets(tweets, db):
