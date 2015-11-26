@@ -57,11 +57,8 @@ def get_tweet_params(tweet):
 
 def import_tweet(tweet, db):
     """ Takes tweet and imports it into the database """
-    import_query = db.Replace(
-        'tweets', constraints=('id',),
-        cols=('id', 'handle', 'text', 'image', 'created'))
-    db.execute(import_query, get_tweet_params(tweet))
+    db.execute(IMPORT_QUERY, get_tweet_params(tweet))
 
 
 def import_tweets(tweets, db):
-    db.executemany(IMPORT_QUERY, (get_tweet_params(t) for t in tweets))
+    return db.executemany(IMPORT_QUERY, (get_tweet_params(t) for t in tweets))
