@@ -33,12 +33,12 @@ ${_('Twitter')}
             % elif not tweet_count:
                 <div class="tweet-error">
                     ## Translators, message used when no tweets are found for a given handle
-                    <p>${_('Sorry! No tweets could be found with the user name "{}"').format(handle)}</p>
+                    <p>${_('Sorry! No tweets could be found with the user name "{handle}"').format(handle=handle) | h}</p>
                 </div>
             % else:
                 % if handle:
                     <p class="twitter-note">
-                        ${_('Showing tweets from @{handle}.').format(handle=handle)}
+                        ${_('Showing tweets from @{handle}.').format(handle=handle) | h}
                         <a href="${i18n_url('twitter:list')}">
                             <span class="icon icon-arrow-left"></span>
                             <span>${_('Go back to all teweets')}</span>
@@ -47,21 +47,21 @@ ${_('Twitter')}
                 % endif
             % endif
             % for tweet in tweets:
-                <div class="tweet" id="${tweet['id']}">
+                <div class="tweet" id="${tweet['id'] | h}">
                     <p class="tweet-header">
                         <span class="twitter-icon icon icon-tweet"></span>
                         <span class="tweet-handle">
                             <a href="${i18n_url('twitter:list', h=tweet['handle'])}">
-                                @${tweet['handle']}
+                                @${tweet['handle'] | h}
                             </a>
                         </span>
                     </p>
                     <p class="tweet-text">
-                        ${tweet['text']}
+                        ${tweet['text'] | h}
                     </p>
                     % if tweet['image']:
                         <p class="tweet-img">
-                            <img src="${tweet.image_path}" alt="image">
+                            <img src="${tweet.image_path | h}" alt="image">
                         </p>
                     % endif
                     <span class="tweet-timestamp">
@@ -87,7 +87,7 @@ ${_('Twitter')}
                 % endif
                 % for handle in handles:
                     <a class="handle" href="${i18n_url('twitter:list', h=handle[0])}">
-                        @${handle[0]}
+                        @${handle[0] | h}
                     </a>
                 % endfor
             </div>
