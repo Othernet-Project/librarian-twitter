@@ -2,7 +2,7 @@ import json
 import logging
 
 from sqlize_pg import Replace
-from librarian_core.contrib.databases.serializers import DateTimeDecoder
+from librarian_core.utils import to_datetime
 
 
 IMPORT_QUERY = Replace('tweets',
@@ -38,7 +38,12 @@ def check_for_tweets(supervisor):
 def parse_json(path, db):
     """ Makes a note in the log, opens json file, and imports each tweet """
     logging.debug("Twitter: importing {}".format(path))
-    import_tweets(json.load(open(path), cls=DateTimeDecoder), db)
+    with open(path) as f:
+        import_tweets(json.load(f), db)
+
+
+def convert_timestamp(sdate, stime):
+    return to_datetime(' '.join([sdate, stime, 'UTC']))
 
 
 def get_tweet_params(tweet):
@@ -46,7 +51,7 @@ def get_tweet_params(tweet):
         'id': tweet['id'],
         'handle': tweet['handle'],
         'text': tweet['text'],
-        'created': tweet['time'],
+        'created': convert_timestamp(tweet['date'], tweet['time']),
     }
     try:
         params['image'] = tweet['img']
