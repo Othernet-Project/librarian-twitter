@@ -23,7 +23,7 @@ def check_for_tweets(supervisor):
         if path[-5:] == '.json':
             parse_json(path, db)
             logging.debug("Twitter: removing imported file: {}".format(path))
-            fsal_client.remove(path)
+            fsal_client.remove(f.rel_path)
         else:
             logging.debug('Twitter: not a json: {}'.format(path))
 
