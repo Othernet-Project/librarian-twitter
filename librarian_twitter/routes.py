@@ -31,7 +31,7 @@ class Tweet(dict):
         full_path = '/'.join([self.path, 'img',
                               self.data['id'] + self.data['image']])
         full_path = full_path.replace( '//', '/')
-        return i18n_url('files:direct', path=full_path)
+        return request.app.get_url('files:direct', path=full_path)
 
 
 
