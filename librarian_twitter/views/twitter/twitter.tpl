@@ -57,7 +57,7 @@ ${_('Twitter')}
                         </span>
                     </p>
                     <p class="tweet-text">
-                        ${tweet['text'] | h}
+                        ${tweet['text']}
                     </p>
                     % if tweet['image']:
                         <p class="tweet-img">
