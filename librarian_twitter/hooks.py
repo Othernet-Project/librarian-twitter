@@ -13,4 +13,4 @@ def post_start(supervisor):
     supervisor.exts.tasks.schedule(check_for_tweets,
                                    args=(supervisor,),
                                    delay=refresh_rate,
-                                   periodic=False)
+                                   periodic=True)

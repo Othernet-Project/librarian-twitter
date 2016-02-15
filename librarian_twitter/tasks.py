@@ -27,13 +27,6 @@ def check_for_tweets(supervisor):
         else:
             logging.debug('Twitter: not a json: {}'.format(path))
 
-    # Schedule next run
-    refresh_rate = supervisor.config['twitter.refresh_rate']
-    supervisor.exts.tasks.schedule(check_for_tweets,
-                                   args=(supervisor,),
-                                   delay=refresh_rate,
-                                   periodic=False)
-
 
 def parse_json(path, db):
     """ Makes a note in the log, opens json file, and imports each tweet """
