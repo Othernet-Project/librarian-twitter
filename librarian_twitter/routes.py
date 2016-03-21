@@ -1,10 +1,7 @@
-import os
-
 from bottle import request
 from bottle_utils.i18n import i18n_url
 from librarian_core.contrib.templates.renderer import view
-from .twitter import (init_pager, retrieve_tweets, twitter_count, list_handles,
-                      rows_to_dicts)
+from .twitter import init_pager, retrieve_tweets, twitter_count, list_handles
 
 
 EXPORTS = {
@@ -30,9 +27,8 @@ class Tweet(dict):
     def image_path(self):
         full_path = '/'.join([self.path, 'img',
                               self.data['id'] + self.data['image']])
-        full_path = full_path.replace( '//', '/')
+        full_path = full_path.replace('//', '/')
         return request.app.get_url('files:direct', path=full_path)
-
 
 
 @view('twitter/twitter')
