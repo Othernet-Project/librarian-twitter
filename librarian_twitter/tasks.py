@@ -1,7 +1,7 @@
 import json
 import logging
 
-from sqlize_pg import Replace
+from sqlize import Replace
 from librarian_core.utils import to_datetime
 
 
