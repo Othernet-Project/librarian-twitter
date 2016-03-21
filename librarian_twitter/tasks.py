@@ -6,7 +6,6 @@ from librarian_core.utils import to_datetime
 
 
 IMPORT_QUERY = Replace('tweets',
-                       constraints=('id',),
                        cols=('id', 'handle', 'text', 'image', 'created'))
 
 
