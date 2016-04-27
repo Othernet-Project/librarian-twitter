@@ -71,14 +71,15 @@ Tweets are just like any other file, but they live in ``.appdata/tweets``. They
 also get deleted immediately after ingestion. Tweets are a json notation text 
 file that use 5 keys in an array. The keys are::
 
-======   ========
+======   =========================================
 name     value
-======   ========
+======   =========================================
 date     Date of broadcast, `yyyy-mm-dd` format
 handle   Name of person who tweeted without the @
 id       Twitter ID of the tweet in question
 text     Content of the tweet
 time     Time the tweet occured, `hh:mm:ss` format
+======   =========================================
 
 An example tweet::
 
