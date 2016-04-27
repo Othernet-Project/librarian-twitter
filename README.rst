@@ -91,5 +91,7 @@ An example tweet::
       "time": "18:11:27"
   }
 
-Images may be provided and must be named ``$tweet-id``.ext. For example, if i had an image for the above tweet, it would 
-belong at the path ``.appdata/tweets/img/577895032209960960.png``
+Images may be provided and must be named ``<tweet id>.<image extension>``. For 
+example, if we have a ``tweet-id`` of 577895032209960960 and an the image 
+extension `.png`, the file name would be ``577895032209960960.png`` and it 
+would belong at the path ``.appdata/tweets/img/577895032209960960.png``.
