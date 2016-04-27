@@ -59,3 +59,22 @@ use::
 .. _librarian-content: https://github.com/Outernet-Project/librarian-content
 .. _compass: http://compass-style.org/
 .. _coffeescript: http://coffeescript.org/
+
+
+Testing Tweets Locally
+----------------------
+
+Tweets are just like any other file, but they live in ``.appdata/tweets``. They also get deleted immediately after ingestion.
+
+An example tweet::
+
+  {
+      "date": "2015-03-17",
+      "handle": "BreakingNews",
+      "id": "577895032209960960",
+      "text": "RT @breakingpol: Illinois Rep. Aaron Schock is resigning his seat in Congress - @politico http://t.co/sgCkJiSSyP",
+      "time": "18:11:27"
+  }
+
+Images may be provided and must be named ``$tweet-id``.ext. For example, if i had an image for the above tweet, it would 
+belong at the path ``.appdata/tweets/img/577895032209960960.png``
