@@ -69,7 +69,7 @@ obtaining twitter data.
 
 Tweets are just like any other file, but they live in ``.appdata/tweets``. They 
 also get deleted immediately after ingestion. Tweets are a json notation text 
-file that use 5 keys in an array. The keys are::
+file that use 5 keys in an array. The keys are:
 
 ======   =========================================
 name     value
