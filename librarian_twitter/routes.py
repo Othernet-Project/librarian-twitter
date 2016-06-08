@@ -1,10 +1,9 @@
-import os
-
 from bottle import request
 from bottle_utils.i18n import i18n_url
-from librarian_core.contrib.templates.renderer import view
-from .twitter import (init_pager, retrieve_tweets, twitter_count, list_handles,
-                      rows_to_dicts)
+
+from librarian.core.contrib.templates.renderer import view
+
+from .twitter import init_pager, retrieve_tweets, twitter_count, list_handles
 
 
 EXPORTS = {
