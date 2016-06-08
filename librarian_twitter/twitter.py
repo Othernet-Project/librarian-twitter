@@ -1,4 +1,4 @@
-from librarian_ui.paginator import Paginator
+from librarian.presentation.paginator import Paginator
 
 HANDLE_RE = '.+'
 
@@ -19,7 +19,9 @@ def rows_to_dicts(row_list):
 
 
 def retrieve_tweets(db, handle, pager):
-    """ Takes a request context, a handle, and a pager and returns a list """
+    """
+    Takes a request context, a handle, and a pager and returns a list.
+    """
     handle = handle.strip()
     q = db.Select(sets='tweets')
     offset, limit = pager.items
@@ -38,7 +40,9 @@ def list_handles(db):
 
 
 def twitter_count(db, handle):
-    """ Queries the database and returns a count of tweets for the given handle """
+    """
+    Queries the database and returns a count of tweets for the given handle.
+    """
     q = db.Select('COUNT(*) as count', sets='tweets')
     if handle != '':
         q.where = "handle ~ %(handle)s"
