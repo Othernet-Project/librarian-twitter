@@ -1,11 +1,11 @@
 import json
 import logging
 
+from greentasks import Task
 from sqlize_pg import Replace
 
 from librarian.core.exts import ext_container as exts
 from librarian.core.utils import to_datetime
-from librarian.tasks import Task
 
 
 IMPORT_QUERY = Replace('tweets',
@@ -14,6 +14,14 @@ IMPORT_QUERY = Replace('tweets',
 
 
 class CheckTweetsTask(Task):
+    name = 'tweets'
+    periodic = True
+
+    def get_start_delay(self):
+        return exts.config['twitter.refresh_rate']
+
+    def get_delay(self, previous_delay):
+        return exts.config['twitter.refresh_rate']
 
     def run(self):
         """
@@ -30,13 +38,6 @@ class CheckTweetsTask(Task):
                 exts.fsal.remove(f.rel_path)
             else:
                 logging.debug('Twitter: not a json: {}'.format(f.path))
-
-    @classmethod
-    def install(cls):
-        refresh_rate = exts.config['twitter.refresh_rate']
-        if not refresh_rate:
-            return
-        exts.tasks.schedule(cls(), delay=refresh_rate, periodic=True)
 
 
 def parse_json(path, db):
