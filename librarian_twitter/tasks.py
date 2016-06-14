@@ -1,8 +1,11 @@
 import json
 import logging
 
+from greentasks import Task
 from sqlize_pg import Replace
-from librarian_core.utils import to_datetime
+
+from librarian.core.exts import ext_container as exts
+from librarian.core.utils import to_datetime
 
 
 IMPORT_QUERY = Replace('tweets',
@@ -10,29 +13,31 @@ IMPORT_QUERY = Replace('tweets',
                        cols=('id', 'handle', 'text', 'image', 'created'))
 
 
-def check_for_tweets(supervisor):
-    """ Checks the configured tweetdir for .json files and creates an
-        import_from_file task in the queue """
-    config = supervisor.config
-    db = supervisor.exts.databases['twitter']
-    fsal_client = supervisor.exts.fsal
-    (success, dirs, files) = fsal_client.list_dir(config['twitter.tweetdir'])
+class CheckTweetsTask(Task):
+    name = 'tweets'
+    periodic = True
 
-    for f in files:
-        path = f.path
-        if path[-5:] == '.json':
-            parse_json(path, db)
-            logging.debug("Twitter: removing imported file: {}".format(path))
-            fsal_client.remove(f.rel_path)
-        else:
-            logging.debug('Twitter: not a json: {}'.format(path))
+    def get_start_delay(self):
+        return exts.config['twitter.refresh_rate']
 
-    # Schedule next run
-    refresh_rate = supervisor.config['twitter.refresh_rate']
-    supervisor.exts.tasks.schedule(check_for_tweets,
-                                   args=(supervisor,),
-                                   delay=refresh_rate,
-                                   periodic=False)
+    def get_delay(self, previous_delay):
+        return exts.config['twitter.refresh_rate']
+
+    def run(self):
+        """
+        Checks the configured tweetdir for .json files and creates an
+        import_from_file task in the queue.
+        """
+        db = exts.databases['twitter']
+        tweet_dir = exts.config['twitter.tweetdir']
+        (success, dirs, files) = exts.fsal.list_dir(tweet_dir)
+        for f in files:
+            if f.path[-5:] == '.json':
+                parse_json(f.path, db)
+                logging.debug("Twitter: removing imported file: %s", f.path)
+                exts.fsal.remove(f.rel_path)
+            else:
+                logging.debug('Twitter: not a json: {}'.format(f.path))
 
 
 def parse_json(path, db):
